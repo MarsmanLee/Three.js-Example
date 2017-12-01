@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="three.js"></script>
+    <script src="Stats.js"></script>
+    <title>方向光</title>
+    <style>
+        #canvas-frame {
+            width: 100%;
+            height: 600px;
+            cursor: pointer;
+            border: none;
+            background-color: #eeeeee;
+        }
+    </style>
+    <script>
+        var renderer;
+        var stats;
+
+        function initThree() {
+            width = document.getElementById('canvas-frame').clientWidth;
+            height = document.getElementById('canvas-frame').clientHeight;
+            renderer = new THREE.WebGLRenderer({
+                antialias: true
+            });
+            renderer.setSize(width, height);
+            document.getElementById('canvas-frame').appendChild(renderer.domElement);
+
+            stats = new Stats();
+            stats.domElement.style.position = "absolute";
+            stats.domElement.style.left = 0;
+            stats.domElement.style.top = 0;
+            document.getElementById('canvas-frame').appendChild(stats.domElement);
+            renderer.setClearColor(0xFFFFFF, 1.0);
+        }
+
+        var camera;
+
+        function initCamera() {
+            camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
+            camera.position.x = 600;
+            camera.position.y = 0;
+            camera.position.z = 600;
+            camera.up.x = 0;
+            camera.up.y = 1;
+            camera.up.z = 0;
+            camera.lookAt({
+                x: 0,
+                y: 0,
+                z: 0
+            })
+        }
+
+        var scene;
+
+        function initScene() {
+            scene = new THREE.Scene();
+        }
+
+
+        var light;
+
+        function initLight() {
+            light = new THREE.DirectionalLight(0xfaebd7, 1);
+            light.position.set(1, 0, 0.5);
+            scene.add(light);
+        }
+
+        var cube;
+        var mesh;
+        var mesh2;
+        var mesh3;
+        var mesh4;
+        var mesh5;
+        var mesh6;
+
+        function initObject() {
+            var geometry = new THREE.CubeGeometry(200, 100, 50, 100, 100);
+            var material = new THREE.MeshLambertMaterial({
+                color: 0xffffff
+            });
+            mesh = new THREE.Mesh(geometry, material);
+            mesh.position.set(0, 0, 0);
+            scene.add(mesh);
+
+
+            var geometry2 = new THREE.CubeGeometry(200, 100, 50, 100, 100);
+            var material2 = new THREE.MeshLambertMaterial({
+                color: 0xffffff
+            });
+            mesh2 = new THREE.Mesh(geometry2, material2);
+            mesh2.position.set(-300, 0, 0);
+            scene.add(mesh2);
+
+
+            var geometry3 = new THREE.CubeGeometry(200, 100, 50, 100, 100);
+            var material3 = new THREE.MeshLambertMaterial({
+                color: 0xffffff
+            });
+            mesh3 = new THREE.Mesh(geometry3, material3);
+            mesh3.position.set(0, -150, 0);
+            scene.add(mesh3);
+
+
+            var geometry4 = new THREE.CubeGeometry(200, 100, 50, 100, 100);
+            var material4 = new THREE.MeshLambertMaterial({
+                color: 0xffffff
+            });
+            mesh4 = new THREE.Mesh(geometry4, material4);
+            mesh4.position.set(0, 150, 0);
+            scene.add(mesh4);
+
+
+            var geometry5 = new THREE.CubeGeometry(200, 100, 50, 100, 100);
+            var material5 = new THREE.MeshLambertMaterial({
+                color: 0xffffff
+            });
+            mesh5 = new THREE.Mesh(geometry5, material5);
+            mesh5.position.set(300, 0, 0);
+            scene.add(mesh5);
+
+
+            var geometry6 = new THREE.CubeGeometry(200, 100, 50, 100, 100);
+            var material6 = new THREE.MeshLambertMaterial({
+                color: 0xffffff
+            });
+            mesh6 = new THREE.Mesh(geometry6, material6);
+            mesh6.position.set(0, 0, -100);
+            scene.add(mesh6);
+        }
+
+
+
+
+
+
+
+        function threeStart() {
+            initThree();
+            initCamera();
+            initScene();
+            initLight();
+            initObject();
+            animation();
+        }
+
+        function animation() {
+            renderer.clear();
+            renderer.render(scene, camera);
+            requestAnimationFrame(animation);
+            stats.update();
+        }
+    </script>
+</head>
+
+<body onload="threeStart();">
+    <div id="canvas-frame"></div>
+</body>
+
+</html>

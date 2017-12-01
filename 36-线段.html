@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+
+<head>
+    <script type="text/javascript" src="three.js"></script>
+
+    <script type="text/javascript">
+        function init() {
+            // 渲染器
+            var renderer = new THREE.WebGLRenderer();
+            // 设定渲染器尺寸
+            renderer.setSize(800, 600);
+            // 添加到dom
+            document.body.appendChild(renderer.domElement);
+            // 重绘时颜色
+            renderer.setClearColor(0x000000);
+
+            // 场景
+            var scene = new THREE.Scene();
+
+            // 相机
+            var camera = new THREE.OrthographicCamera(-5, 5, 3.75, -3.75, 0.1, 100);
+            // 设定相机位置
+            camera.position.set(0, -25, 0);
+            // 相机看向
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            scene.add(camera);
+
+            // // 定义一个物体
+            // // new 一个模型
+            // var geometry = new THREE.Geometry();
+            // // 定义模型的类型是线段  并且设置其材质
+            // var material = new THREE.LineBasicMaterial({
+            //     // 使用顶点颜色
+            //     vertexColors: true
+            // });
+            // // 定义两个颜色
+            // var color1 = new THREE.Color(0x444444),
+            //     color2 = new THREE.Color(0xff0000);
+
+            // // 新建两个点
+            // var p1 = new THREE.Vector3(-1, 0, 1);
+            // var p2 = new THREE.Vector3(1, 0, -1);
+
+            // // 将新建的两个点添加到几何体中
+            // geometry.vertices.push(p1);
+            // geometry.vertices.push(p2);
+
+            // // 将两个颜色添加到几何体中
+            // geometry.colors.push(color1, color2);
+
+            // // new 一条线
+            // var line = new THREE.Line(geometry, material, THREE.LinePieces);
+            // scene.add(line);
+
+
+            var geometry = new THREE.Geometry();
+            geometry.vertices.push(new THREE.Vector3(-2, 0, 0));
+            geometry.vertices.push(new THREE.Vector3(2, 0, 0));
+
+            for (var i = 0; i <= 5; i++) {
+
+                var line = new THREE.Line(geometry, new THREE.LineBasicMaterial({
+                    color: 0xffffff,
+                }));
+                line.position.z = (i * 0.8) - 2;
+                scene.add(line);
+
+                var line = new THREE.Line(geometry, new THREE.LineBasicMaterial({
+                    color: 0xffffff,
+                    opacity: 0.2
+                }));
+                line.position.x = (i * 0.8) - 2;
+                line.rotation.y = 90 * Math.PI / 180;
+                scene.add(line);
+
+                // 渲染
+                renderer.render(scene, camera);
+
+            }
+        }
+    </script>
+</head>
+
+<body onload="init()">
+
+</body>
+
+</html>
